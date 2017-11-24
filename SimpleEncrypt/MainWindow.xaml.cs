@@ -23,9 +23,23 @@ namespace SimpleEncrypt
   {
     OpenFileDialog dialog = new OpenFileDialog();
     SaveFileDialog save = new SaveFileDialog();
+    Encryptor encryptor = new Encryptor();
     public MainWindow()
     {
       InitializeComponent();
+      ProgressBar.Maximum = 100;
+      encryptor.EncryptionProgressEvent += EncryptorOnEncryptionProgressEvent;
+      encryptor.EncryptionProgressedEvent += EncryptorOnEncryptionProgressedEvent;
+    }
+
+    private void EncryptorOnEncryptionProgressedEvent(bool result)
+    {
+      ProgressBar.Value = 0;
+    }
+
+    private void EncryptorOnEncryptionProgressEvent(float progress)
+    {
+      ProgressBar.Value = progress;
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -40,14 +54,14 @@ namespace SimpleEncrypt
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-      var encryptor = new Encryptor();
+      ProgressBar.Value = 0;
       if (!string.IsNullOrWhiteSpace(FilePath.Text))
         encryptor.EncryptFile(FilePath.Text);
     }
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
-      var encryptor = new Encryptor();
+      ProgressBar.Value = 0;
       if (!string.IsNullOrWhiteSpace(FilePath.Text))
         encryptor.DecryptFile(FilePath.Text);
     }

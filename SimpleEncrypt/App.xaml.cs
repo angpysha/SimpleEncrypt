@@ -16,6 +16,7 @@ namespace SimpleEncrypt
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
       var argsCount = e.Args.Length;
+      
     }
   }
 }

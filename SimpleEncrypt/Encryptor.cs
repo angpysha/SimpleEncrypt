@@ -6,6 +6,12 @@ namespace SimpleEncrypt
 {
   public class Encryptor
   {
+    public delegate void EncryptionProgress(float progress);
+    public event EncryptionProgress EncryptionProgressEvent;
+
+    public delegate void EncryptionProgressed(bool result);
+
+    public event EncryptionProgressed EncryptionProgressedEvent;
     private static readonly byte[] SALT = new byte[] { 0x26, 0xdc, 0xff, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x07, 0xaf, 0x4d, 0x08, 0x22, 0x3c };
 
     public void EncryptFile(string path)
@@ -38,11 +44,13 @@ namespace SimpleEncrypt
             while ((data = fsInput.ReadByte()) != -1)
             {
               cs.WriteByte((byte)data);
-
+              float progress = ((float)fsInput.Position / (float)fsInput.Length)*100;
+              OnEncryptionProgressEvent(progress);
             }
           }
         }
       }
+     // OnEncryptionProgressedEvent(true);
     }
 
     public void DecryptFile(string path)
@@ -70,14 +78,27 @@ namespace SimpleEncrypt
           using (FileStream fileOut = new FileStream(dencryptedFile,FileMode.Create))
           {
             int data;
-
             while ((data=cs.ReadByte()) != -1)
             {
               fileOut.WriteByte((byte)data);
+              float progress = ((float)fileStream.Position / (float)fileStream.Length) * 100;
+              OnEncryptionProgressEvent(progress);
             }
           }
         }
       }
+    //  OnEncryptionProgressedEvent(true);
+
+    }
+
+    protected virtual void OnEncryptionProgressEvent(float progress)
+    {
+      EncryptionProgressEvent?.Invoke(progress);
+    }
+
+    protected virtual void OnEncryptionProgressedEvent(bool result)
+    {
+      EncryptionProgressedEvent?.Invoke(result);
     }
   }
 }
