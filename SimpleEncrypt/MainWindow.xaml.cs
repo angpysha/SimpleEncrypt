@@ -37,7 +37,7 @@ namespace SimpleEncrypt
       ProgressBar.Value = 0;
     }
 
-    private void EncryptorOnEncryptionProgressEvent(float progress)
+    private void EncryptorOnEncryptionProgressEvent(float progress,int type)
     {
       ProgressBar.Value = progress;
     }
