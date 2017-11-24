@@ -22,6 +22,7 @@ namespace SimpleEncrypt
   public partial class MainWindow : Window
   {
     OpenFileDialog dialog = new OpenFileDialog();
+    SaveFileDialog save = new SaveFileDialog();
     public MainWindow()
     {
       InitializeComponent();
@@ -35,6 +36,20 @@ namespace SimpleEncrypt
 
       FilePath.Text = dialog?.FileName ?? "";
 
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+      var encryptor = new Encryptor();
+      if (!string.IsNullOrWhiteSpace(FilePath.Text))
+        encryptor.EncryptFile(FilePath.Text);
+    }
+
+    private void Button_Click_2(object sender, RoutedEventArgs e)
+    {
+      var encryptor = new Encryptor();
+      if (!string.IsNullOrWhiteSpace(FilePath.Text))
+        encryptor.DecryptFile(FilePath.Text);
     }
   }
 }

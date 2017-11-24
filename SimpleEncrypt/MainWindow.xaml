@@ -13,7 +13,8 @@
         </Grid.ColumnDefinitions>
         <TextBox Name="FilePath" Margin="32,27,0,127" TextWrapping="NoWrap" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="362"/>
         <Button Content="..." Margin="173,27,0,127" HorizontalAlignment="Left" Width="22" Grid.Column="1" Click="Button_Click"/>
-        <Button Content="Encrypt" HorizontalAlignment="Left" Margin="27,98,0,0" VerticalAlignment="Top" Width="112" Height="35"/>
-        <Button Content="Decrypt" HorizontalAlignment="Left" Margin="201,98,0,0" VerticalAlignment="Top" Width="112" Height="35" Grid.ColumnSpan="2"/>
+        <Button Content="Encrypt" HorizontalAlignment="Left" Margin="27,98,0,0" VerticalAlignment="Top" Width="112" Height="35" Click="Button_Click_1"/>
+        <Button Content="DecryptFile" HorizontalAlignment="Left" Margin="201,98,0,0" VerticalAlignment="Top" Width="112" Height="35" Grid.ColumnSpan="2" Click="Button_Click_2"/>
+        <CheckBox Name="SaveBox" Content="Save file dialog" HorizontalAlignment="Left" Margin="27,69,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
