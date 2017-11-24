@@ -6,7 +6,7 @@ namespace SimpleEncrypt
 {
   public class Encryptor
   {
-    public delegate void EncryptionProgress(float progress);
+    public delegate void EncryptionProgress(float progress,int type);
     public event EncryptionProgress EncryptionProgressEvent;
 
     public delegate void EncryptionProgressed(bool result);
@@ -39,14 +39,21 @@ namespace SimpleEncrypt
         {
           using (FileStream fsInput = new FileStream(path,FileMode.Open))
           {
+            byte[] buffer = new byte[32*1024];
             int data;
-
-            while ((data = fsInput.ReadByte()) != -1)
+            while ((data = fsInput.Read(buffer, 0, buffer.Length)) > 0)
             {
-              cs.WriteByte((byte)data);
-              float progress = ((float)fsInput.Position / (float)fsInput.Length)*100;
-              OnEncryptionProgressEvent(progress);
+              cs.Write(buffer,0,data);
+              float progress = ((float)fsInput.Position / (float)fsInput.Length) * 100;
+              OnEncryptionProgressEvent(progress,0);
             }
+            //while ((data = fsInput.ReadByte()) != -1)
+            //{
+            //  cs.WriteByte((byte)data);
+            //  float progress = ((float)fsInput.Position / (float)fsInput.Length)*100;
+            //  OnEncryptionProgressEvent(progress);
+            //}
+          fsInput.CopyTo(cs);
           }
         }
       }
@@ -77,12 +84,19 @@ namespace SimpleEncrypt
         {
           using (FileStream fileOut = new FileStream(dencryptedFile,FileMode.Create))
           {
+            //while ((data=cs.ReadByte()) != -1)
+            //{
+            // /* fileOut.WriteByte((byte)data);*/
+            //  float progress = ((float)fileStream.Position / (float)fileStream.Length) * 100;
+            //  OnEncryptionProgressEvent(progress);
+            //}
+            byte[] buffer = new byte[32 * 1024];
             int data;
-            while ((data=cs.ReadByte()) != -1)
+            while ((data = cs.Read(buffer, 0, buffer.Length)) > 0)
             {
-              fileOut.WriteByte((byte)data);
+             fileOut.Write(buffer, 0, data);
               float progress = ((float)fileStream.Position / (float)fileStream.Length) * 100;
-              OnEncryptionProgressEvent(progress);
+              OnEncryptionProgressEvent(progress,1);
             }
           }
         }
@@ -91,9 +105,9 @@ namespace SimpleEncrypt
 
     }
 
-    protected virtual void OnEncryptionProgressEvent(float progress)
+    protected virtual void OnEncryptionProgressEvent(float progress,int type)
     {
-      EncryptionProgressEvent?.Invoke(progress);
+      EncryptionProgressEvent?.Invoke(progress,type);
     }
 
     protected virtual void OnEncryptionProgressedEvent(bool result)
