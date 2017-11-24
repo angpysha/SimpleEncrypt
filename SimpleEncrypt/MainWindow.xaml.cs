@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace SimpleEncrypt
 {
@@ -20,9 +21,20 @@ namespace SimpleEncrypt
   /// </summary>
   public partial class MainWindow : Window
   {
+    OpenFileDialog dialog = new OpenFileDialog();
     public MainWindow()
     {
       InitializeComponent();
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+      dialog.Filter = "All files|*.*";
+      dialog.Title = "Please select your file";
+      dialog.ShowDialog();
+
+      FilePath.Text = dialog?.FileName ?? "";
+
     }
   }
 }
