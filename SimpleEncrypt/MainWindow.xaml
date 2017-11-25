@@ -5,17 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleEncrypt"
         mc:Ignorable="d"
-        Title="SimpleEncrypt" Height="211.842" Width="455.263" ResizeMode="NoResize">
-    <Grid Margin="0,0,2,1">
+        Title="SimpleEncrypt" Height="320.509" Width="455.263" ResizeMode="NoResize">
+    <Grid Margin="0,0,2,-3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="241*"/>
             <ColumnDefinition Width="204*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="FilePath" Margin="32,27,0,127" TextWrapping="NoWrap" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="362"/>
-        <Button Content="..." Margin="173,27,0,127" HorizontalAlignment="Left" Width="22" Grid.Column="1" Click="Button_Click"/>
-        <Button Content="Encrypt" HorizontalAlignment="Left" Margin="27,128,0,0" VerticalAlignment="Top" Width="112" Height="35" Click="Button_Click_1"/>
-        <Button Content="DecryptFile" HorizontalAlignment="Left" Margin="40,128,0,0" VerticalAlignment="Top" Width="112" Height="35" Click="Button_Click_2" Grid.Column="1"/>
-        <CheckBox Name="SaveBox" Content="Save file dialog" HorizontalAlignment="Left" Margin="27,100,0,0" VerticalAlignment="Top"/>
-        <ProgressBar HorizontalAlignment="Left" Height="22" Margin="32,73,0,0" VerticalAlignment="Top" Width="362" Grid.ColumnSpan="2" Name="ProgressBar"/>
+        <Menu Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="SimpleEncrypt">
+                <MenuItem Header="Properties"></MenuItem>
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="About"></MenuItem>
+        </Menu>
+        <TextBox Name="FilePath" Margin="24,0,0,223" TextWrapping="NoWrap" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="362" Height="26" VerticalAlignment="Bottom"/>
+        <Button Content="..." Margin="164,0,19,223" Grid.Column="1" Click="Button_Click" Height="26" VerticalAlignment="Bottom"/>
+        <Button Content="Encrypt" HorizontalAlignment="Left" Margin="23,160,0,0" VerticalAlignment="Top" Width="112" Height="35" Click="Button_Click_1"/>
+        <Button Content="Decrypt" HorizontalAlignment="Left" Margin="31,160,0,0" VerticalAlignment="Top" Width="112" Height="35" Click="Button_Click_2" Grid.Column="1"/>
+        <CheckBox Name="SaveBox" Content="Save file dialog" HorizontalAlignment="Left" Margin="23,129,0,0" VerticalAlignment="Top"/>
+        <ProgressBar HorizontalAlignment="Left" Height="22" Margin="24,226,0,0" VerticalAlignment="Top" Width="361" Grid.ColumnSpan="2" Name="ProgressBar"/>
+        <Label Content="Progress" HorizontalAlignment="Left" Margin="24,195,0,0" VerticalAlignment="Top"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="32,250,0,0" VerticalAlignment="Top"/>
+        <Label Visibility="Hidden" Content="Choose method" HorizontalAlignment="Left" Margin="23,41,0,0" VerticalAlignment="Top"/>
+        <RadioButton Visibility="Hidden" Content="PC key" HorizontalAlignment="Left" Margin="24,72,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton Content="Other key" Visibility="Hidden" HorizontalAlignment="Left" Margin="129,72,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="FilePath_Copy" Visibility="Hidden" Margin="24,0,0,177" TextWrapping="NoWrap" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="362" Height="26" VerticalAlignment="Bottom"/>
+        <Button Visibility="Hidden" Content="..." Margin="164,0,19,177" Grid.Column="1" Click="Button_Click" Height="26" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
