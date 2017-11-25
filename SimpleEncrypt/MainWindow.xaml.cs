@@ -24,6 +24,8 @@ namespace SimpleEncrypt
     OpenFileDialog dialog = new OpenFileDialog();
     SaveFileDialog save = new SaveFileDialog();
     Encryptor encryptor = new Encryptor();
+    SaveFileDialog saveDialog = new SaveFileDialog();
+
     public MainWindow()
     {
       InitializeComponent();
@@ -51,19 +53,57 @@ namespace SimpleEncrypt
       FilePath.Text = dialog?.FileName ?? "";
 
     }
-
+    /// <summary>
+    /// Action by pression Encrypt button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
       ProgressBar.Value = 0;
-      if (!string.IsNullOrWhiteSpace(FilePath.Text))
-        encryptor.EncryptFile(FilePath.Text);
+      if (SaveBox.IsChecked != null && SaveBox.IsChecked.Value)
+      {
+        var extension = dialog.FileName.GetFileExtension();
+        saveDialog.Filter = $"Encrypted files|*.{extension}.encr";
+        //saveDialog.FileName = dialog.FileName.Split('.')[0];
+        var result = saveDialog.ShowDialog();
+
+        if (result != null && (!string.IsNullOrWhiteSpace(FilePath.Text) && result.Value))
+          encryptor.EncryptFile(FilePath.Text,saveDialog.FileName);
+      }
+      else
+      {
+          if (!string.IsNullOrWhiteSpace(FilePath.Text))
+            encryptor.EncryptFile(FilePath.Text);
+      }
+
     }
 
+    /// <summary>
+    /// Action pressing Decrypt button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
       ProgressBar.Value = 0;
-      if (!string.IsNullOrWhiteSpace(FilePath.Text))
-        encryptor.DecryptFile(FilePath.Text);
+      if (SaveBox.IsChecked != null && SaveBox.IsChecked.Value)
+      {
+        var fileEncr = dialog.FileName.Replace(".encr", "");
+        var ext = fileEncr.GetFileExtension();
+
+        saveDialog.Filter = $"Decrypted file|*.{ext}";
+        var result = saveDialog.ShowDialog();
+
+        if (result != null && (!string.IsNullOrWhiteSpace(FilePath.Text) && result.Value))
+          encryptor.DecryptFile(FilePath.Text,saveDialog.FileName);
+      }
+      else
+      {
+        if (!string.IsNullOrWhiteSpace(FilePath.Text))
+          encryptor.DecryptFile(FilePath.Text);
+      }
+
     }
   }
 }
