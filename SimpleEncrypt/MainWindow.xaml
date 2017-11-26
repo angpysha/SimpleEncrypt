@@ -16,7 +16,9 @@
                 <MenuItem Header="Properties"></MenuItem>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
-            <MenuItem Header="About"></MenuItem>
+            <MenuItem Header="About">
+                <MenuItem Header="About program"></MenuItem>
+            </MenuItem>
         </Menu>
         <TextBox Name="FilePath" Margin="24,0,0,223" TextWrapping="NoWrap" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="362" Height="26" VerticalAlignment="Bottom"/>
         <Button Content="..." Margin="164,0,19,223" Grid.Column="1" Click="Button_Click" Height="26" VerticalAlignment="Bottom"/>
