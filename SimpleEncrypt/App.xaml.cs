@@ -14,18 +14,13 @@ namespace SimpleEncrypt
   /// </summary>
   public partial class App : Application
   {
-    [DllImport("Kernel32")]
-    public static extern void AllocConsole();
-
-    [DllImport("Kernel32")]
-    public static extern void FreeConsole();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
       var argsCount = e.Args.Length;
       if (argsCount > 0)
       {
         var path = e.Args[0];
-        AllocConsole();
+       MixedLibrary.ApiManaged.AllocConsoleEx();
         Encryptor encryptor = new Encryptor();
 
         encryptor.EncryptionProgressEvent += delegate (float progress, int type)
@@ -33,9 +28,9 @@ namespace SimpleEncrypt
           Console.SetCursorPosition(0, 1);
           Console.Write(new String(' ', Console.BufferWidth));
           if (type == 0)
-            Console.Write($"Encryption progress {(int)progress} %");
+            Console.Write($@"Encryption progress {(int)progress} %");
           else
-            Console.Write($"Decryption progress {(int)progress} %");
+            Console.Write($@"Decryption progress {(int)progress} %");
         };
         if (path.Contains(".encr"))
         {
