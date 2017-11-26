@@ -101,5 +101,11 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MixedLibrary\MixedLibrary.vcxproj">
+      <Project>{9d440e96-1ed3-4dec-b723-347b665a3146}</Project>
+      <Name>MixedLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
